@@ -1,4 +1,4 @@
-# Limit Order Optimizer :money_bag:
+# Limit Order Optimizer 💰
 
 This repository contains the code for a small app that helps to design limit orders for stocks and ETFs. :money_with_wings:
 
