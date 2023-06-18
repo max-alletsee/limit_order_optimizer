@@ -5,6 +5,13 @@ import plotly.figure_factory as ff
 import plotly.graph_objects as go
 import plotly.express as px
 
+st.set_page_config(
+    page_title='Limit Order Optimizer',
+    page_icon=':money_with_wings:',
+    layout='centered',
+    initial_sidebar_state='expanded',
+    menu_items=None)
+
 #-----------------------------------------------------------------------
 # Functions
 #-----------------------------------------------------------------------
