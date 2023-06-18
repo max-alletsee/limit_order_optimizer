@@ -127,7 +127,9 @@ fig_probability_premium_ecdf = px.ecdf(
     title='Probability of Executing a Limit Order with Limit of At Least +x% vs. today',
     labels={
         'premium_in_perc': 'Limit Premium vs. Today (in Percent)'
-    })
+    },
+    ecdfmode='reversed' # to see data above the threshold
+    )
 
 # show plots in different tabs
 tab1, tab2 = st.tabs(["Buy with Discount", "Sell with Premium"])
@@ -142,4 +144,4 @@ with tab1:
 with tab2:
    st.header("Executing a Sell with a Premium")
    st.plotly_chart(fig_probability_premium_ecdf, use_container_width=True)
-   st.write("Empirical cumulative probability of executing a Sell order with varying premium levels vs. today's opening price. Pick the premiu level on the x-axis and find the corresponding probability of executing an order with this premium level.")
+   st.write("Empirical cumulative probability of executing a Sell order with varying premium levels vs. today's opening price. Pick the premium level on the x-axis and find the corresponding probability of executing an order with this premium level.")
