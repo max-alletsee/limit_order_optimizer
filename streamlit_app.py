@@ -43,24 +43,14 @@ def calculate_premium(data):
     return data
 
 #-----------------------------------------------------------------------
-# Layout
+# Layout: Sidebar
 #-----------------------------------------------------------------------
-
-st.title('Limit Order Optimizer')
-
-st.write('This Streamlit app is for people who want to buy or sell stocks with limit orders.')
-         
-st.write('If you specify a timeframe in which you would like to buy/sell and the corresponding limit in percent, the app will tell you the probability that your order is executed.')
-
-st.write('You can **upload a CSV file** for the ISIN/ticker symbol that you have in mind. It works best with data from Yahoo Finance. The data processing assumes you have a `Date` column (in the `Y-m-d` format) as well as columns for the `Open`, `High` and `Low` price of a given day.')
-
-st.write('**If you do *not* upload a file**, the app uses data for the UBS MSCI World SRI (ISIN LU0629459743) between June 2018 and June 2023 as the default data. ([Link to Yahoo Finance](https://finance.yahoo.com/quote/UIMM.DE/history?period1=1529193600&period2=1686960000&interval=1d&filter=history&frequency=1d&includeAdjustedClose=true))')
 
 with st.sidebar:
     st.subheader('Parameters')
 
     uploaded_file = st.file_uploader(
-        label='Upload CSV file with historical data from Yahoo Finance',
+        label='Please upload a CSV file with historical data from Yahoo Finance',
         type=['csv'])
     
     window_length_in_days = st.slider('Order to be executed in the next x days', 1, 180, 30)
@@ -87,8 +77,22 @@ data = calculate_premium(data)
 probability_discount = np.sum(data['discount_in_perc'] <= (-1 * discount)) / len(data.index) * 100
 probability_premium = np.sum(data['premium_in_perc'] >= premium) / len(data.index) * 100
 
+#-----------------------------------------------------------------------
+# Layout: Main Elements
+#-----------------------------------------------------------------------
 
-# Main Elements
+st.title('Limit Order Optimizer 💰')
+
+st.write('This Streamlit app is for people who want to buy or sell stocks or funds with limit orders. 💸')
+         
+st.write('If you specify a timeframe in which you would like to buy/sell and the corresponding limit in percent, the app will tell you the (historical) probability of your order being executed.')
+
+st.write('You can **upload a CSV file** for the ISIN/ticker symbol that you have in mind. It works best with data from Yahoo Finance. The data processing assumes you have a `Date` column (in the `Y-m-d` format) as well as columns for the `Open`, `High` and `Low` price of a given day.')
+
+st.write('**If you do *not* upload a file**, the app uses data for the UBS MSCI World SRI (ISIN LU0629459743) between June 2018 and June 2023 as the default data. ([Link to Yahoo Finance](https://finance.yahoo.com/quote/UIMM.DE/history?period1=1529193600&period2=1686960000&interval=1d&filter=history&frequency=1d&includeAdjustedClose=true))')
+
+st.info('**This is information - not financial advice or any recommendation.** Always do your own research and seek independent financial advice when required. The value of investments and any income derived from them can fall as well as rise and you may not get back the original amount you invested.', icon="⚠️")
+
 st.subheader('What is the probability of executing this order?')
 
 col1, col2 = st.columns(2)
